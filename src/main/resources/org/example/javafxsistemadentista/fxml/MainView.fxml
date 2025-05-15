@@ -10,7 +10,7 @@
         <MenuBar>
             <Menu text="Pacientes">
                 <MenuItem text="Adicionar" onAction="#handleAddPatient"/>
-                <MenuItem text="Listar" onAction="#handleListPatients"/>
+                <MenuItem text="Buscar" onAction="#handleSearchPatient"/>
             </Menu>
         </MenuBar>
     </top>

@@ -1,6 +1,7 @@
 package org.example.javafxsistemadentista.daos;
 
 import org.example.javafxsistemadentista.connection.DatabaseManager;
+import org.example.javafxsistemadentista.daos.interfaces.IPatientDAO;
 import org.example.javafxsistemadentista.entities.Patient;
 
 import java.sql.*;
@@ -8,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientDAO {
+public class PatientDAO implements IPatientDAO {
 
     private Connection connection;
 
@@ -19,6 +20,7 @@ public class PatientDAO {
         this.connection = conn;
     }
 
+    @Override
     public void save(Patient patient) throws SQLException {
         String sql = "INSERT INTO patients (name, cpf, phone, email, birth_date, address) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
@@ -43,6 +45,7 @@ public class PatientDAO {
         }
     }
 
+    @Override
     public Patient findByCpf(String cpf) {
         String sql = "SELECT * FROM patients WHERE cpf = ?";
 
@@ -74,7 +77,8 @@ public class PatientDAO {
         return null;
     }
 
-    public void updatePatient(Patient patient) {
+    @Override
+    public void update(Patient patient) {
         String sql = "UPDATE patients SET name = ?, phone = ?, email = ?, birth_date = ?, address = ? WHERE cpf = ?";
 
         try (Connection conn = DatabaseManager.getConnection();
@@ -93,6 +97,7 @@ public class PatientDAO {
         }
     }
 
+    @Override
     public List<Patient> findAll() throws SQLException {
         List<Patient> patients = new ArrayList<>();
         String sql = "SELECT * FROM patients";

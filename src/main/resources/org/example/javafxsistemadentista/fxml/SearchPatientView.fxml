@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.javafxsistemadentista.controllers.SearchPatientController">
+    <top>
+        <VBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="5" left="15" />
+            </padding>
+            <Text text="Busca de Pacientes" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+            <Separator prefWidth="200.0"/>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="10" right="15" bottom="15" left="15" />
+            </padding>
+            <!-- Search Fields -->
+            <VBox spacing="10" alignment="CENTER">
+                <HBox alignment="CENTER" spacing="10">
+                    <VBox spacing="5">
+                        <Label text="Nome do Paciente:"/>
+                        <TextField fx:id="searchNameField" promptText="Digite o nome do paciente"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="CPF:"/>
+                        <TextField fx:id="searchCpfField" promptText="Digite o CPF"/>
+                    </VBox>
+                    <Button fx:id="searchButton" text="Buscar" onAction="#handleSearch"/>
+                </HBox>
+                <Label text="Resultados da Busca:" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+                <TableView fx:id="patientsTableView" prefHeight="200">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID"/>
+                        <TableColumn fx:id="nameColumn" text="Nome"/>
+                        <TableColumn fx:id="cpfColumn" text="CPF"/>
+                        <TableColumn fx:id="birthDateColumn" text="Data de Nascimento"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Patient Details -->
+            <VBox spacing="10" VBox.vgrow="ALWAYS">
+                <Text text="Informações do Paciente"/>
+                <TabPane fx:id="patientInfoTabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                        <!-- Personal Data Tab -->
+                        <Tab text="Dados Pessoais">
+                            <content>
+                                <ScrollPane fitToWidth="true">
+                                    <content>
+                                        <VBox spacing="10">
+                                            <padding>
+                                                <Insets top="10" right="10" bottom="10" left="10" />
+                                            </padding>
+                                            <GridPane hgap="10" vgap="10">
+                                                <columnConstraints>
+                                                    <ColumnConstraints hgrow="NEVER"/>
+                                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints vgrow="NEVER"/>
+                                                    <RowConstraints vgrow="NEVER"/>
+                                                    <RowConstraints vgrow="NEVER"/>
+                                                    <RowConstraints vgrow="NEVER"/>
+                                                </rowConstraints>
+                                                <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                                <Text fx:id="idLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                                <Label text="Nome:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                                <Text fx:id="nameLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                                                <Label text="CPF:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                                <Text fx:id="cpfLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                                                <Label text="Data de Nascimento:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                                <Text fx:id="birthDateLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                            </GridPane>
+                                        </VBox>
+                                    </content>
+                                </ScrollPane>
+                            </content>
+                        </Tab>
+
+                        <!-- Profile Tab -->
+                        <Tab text="Perfil do Paciente">
+                            <content>
+                                <ScrollPane fitToWidth="true">
+                                    <content>
+                                        <VBox spacing="10">
+                                            <padding>
+                                                <Insets top="10" right="10" bottom="10" left="10" />
+                                            </padding>
+                                            <Label text="Observações:"/>
+                                            <TextArea fx:id="observationsTextArea" editable="false" wrapText="true" prefRowCount="4"/>
+                                            <Label text="Exames Realizados:"/>
+                                            <TableView fx:id="examsTableView">
+                                                <columns>
+                                                    <TableColumn fx:id="examIdColumn" text="ID"/>
+                                                    <TableColumn fx:id="examNameColumn" text="Nome"/>
+                                                    <TableColumn fx:id="examDateColumn" text="Data"/>
+                                                </columns>
+                                            </TableView>
+                                            <HBox spacing="10">
+                                                <Button text="Editar Perfil" onAction="#onEditProfile"/>
+                                                <Button text="Salvar Perfil" onAction="#onSaveProfile"/>
+                                            </HBox>
+                                        </VBox>
+                                    </content>
+                                </ScrollPane>
+                            </content>
+                        </Tab>
+
+                        <!-- Appointments Tab -->
+                        <Tab text="Consultas">
+                            <content>
+                                <VBox spacing="10">
+                                    <padding>
+                                        <Insets top="10" right="10" bottom="10" left="10" />
+                                    </padding>
+                                    <TableView fx:id="appointmentsTableView">
+                                        <columns>
+                                            <TableColumn fx:id="appointmentIdColumn" text="ID"/>
+                                            <TableColumn fx:id="appointmentDateColumn" text="Data"/>
+                                            <TableColumn fx:id="appointmentDoctorColumn" text="Médico"/>
+                                        </columns>
+                                    </TableView>
+                                    <HBox spacing="10">
+                                        <Button text="Editar Consulta" onAction="#onEditAppointment"/>
+                                        <Button text="Salvar Consulta" onAction="#onSaveAppointment"/>
+                                    </HBox>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

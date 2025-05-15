@@ -15,12 +15,12 @@ public class MainController {
 
     @FXML
     private void handleAddPatient() {
-        loadView("/org/example/javafxsistemadentista/fxml/AddPatientView.fxml");
+        loadView("/org/example/javafxsistemadentista/fxml/PatientView.fxml");
     }
 
     @FXML
-    private void handleListPatients() {
-        loadView("/org/example/javafxsistemadentista/fxml/ListPatientsView.fxml");
+    private void handleSearchPatient() {
+        loadView("/org/example/javafxsistemadentista/fxml/SearchPatientView.fxml");
     }
 
     private void loadView(String fxmlPath) {
@@ -29,6 +29,7 @@ public class MainController {
             mainPane.setCenter(view);
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }

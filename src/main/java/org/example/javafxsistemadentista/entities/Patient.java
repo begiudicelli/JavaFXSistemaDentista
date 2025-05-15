@@ -10,6 +10,9 @@ public class Patient {
     private String email;
     private LocalDate birthDate;
     private String address;
+
+    private PatientProfile patientProfile;
+
     public Patient() {}
 
     public Patient(String name, String cpf, String phone, String email, LocalDate birthDate, String address) {
@@ -75,6 +78,14 @@ public class Patient {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public PatientProfile getPatientProfile() {
+        return patientProfile;
+    }
+
+    public void setPatientProfile(PatientProfile patientProfile) {
+        this.patientProfile = patientProfile;
     }
 
     @Override

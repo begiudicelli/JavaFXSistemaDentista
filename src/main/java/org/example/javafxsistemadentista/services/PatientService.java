@@ -2,13 +2,16 @@ package org.example.javafxsistemadentista.services;
 
 import org.example.javafxsistemadentista.daos.PatientDAO;
 import org.example.javafxsistemadentista.entities.Patient;
+import org.example.javafxsistemadentista.validators.PatientValidators;
 
 import java.sql.SQLException;
 
 public class PatientService {
     private final PatientDAO patientDAO = new PatientDAO();
+    private final PatientValidators validators = new PatientValidators();
 
     public void savePatient(Patient patient) throws SQLException {
+        validators.validatePatient(patient);
         patientDAO.save(patient);
     }
 
@@ -16,7 +19,8 @@ public class PatientService {
         return patientDAO.findByCpf(cpf);
     }
 
-    public void updatePatient(Patient patient){
-        patientDAO.updatePatient(patient);
+    public void updatePatient(Patient patient) {
+        patientDAO.update(patient);
     }
+
 }

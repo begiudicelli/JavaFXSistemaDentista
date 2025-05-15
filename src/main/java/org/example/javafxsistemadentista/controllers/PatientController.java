@@ -9,15 +9,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.javafxsistemadentista.daos.PatientDAO;
 import org.example.javafxsistemadentista.entities.Patient;
+import org.example.javafxsistemadentista.entities.PatientProfile;
 import org.example.javafxsistemadentista.services.PatientService;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class AddPatientController implements Initializable {
+public class PatientController implements Initializable {
 
     @FXML
     private TextField nameField;
@@ -48,14 +48,16 @@ public class AddPatientController implements Initializable {
 
     @FXML
     void handleSave(ActionEvent event) {
-        patient = new Patient();
         try {
+            patient = new Patient();
             patient.setName(nameField.getText());
             patient.setCpf(cpfField.getText());
             patient.setPhone(phoneField.getText());
             patient.setEmail(emailField.getText());
             patient.setBirthDate(birthDatePicker.getValue());
             patient.setAddress(addressField.getText());
+
+            patient.setPatientProfile(new PatientProfile());
 
             patientService.savePatient(patient);
 
