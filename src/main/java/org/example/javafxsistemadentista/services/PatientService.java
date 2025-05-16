@@ -5,6 +5,7 @@ import org.example.javafxsistemadentista.entities.Patient;
 import org.example.javafxsistemadentista.validators.PatientValidators;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class PatientService {
     private final PatientDAO patientDAO = new PatientDAO();
@@ -21,6 +22,10 @@ public class PatientService {
 
     public void updatePatient(Patient patient) {
         patientDAO.update(patient);
+    }
+
+    public List<Patient> searchPatientsByName(String name) throws SQLException {
+        return patientDAO.findByName(name);
     }
 
 }

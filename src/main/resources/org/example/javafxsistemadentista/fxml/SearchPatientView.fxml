@@ -49,7 +49,7 @@
                     <Button fx:id="searchButton" text="Buscar" onAction="#handleSearch"/>
                 </HBox>
                 <Label text="Resultados da Busca:" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
-                <TableView fx:id="patientsTableView" prefHeight="200">
+                <TableView fx:id="patientsTableView" prefHeight="200" onMouseClicked="#handlePatientSelection">
                     <columns>
                         <TableColumn fx:id="idColumn" text="ID"/>
                         <TableColumn fx:id="nameColumn" text="Nome"/>

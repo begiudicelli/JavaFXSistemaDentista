@@ -5,6 +5,8 @@ module org.example.javafxsistemadentista {
 
     opens org.example.javafxsistemadentista to javafx.fxml;
     opens org.example.javafxsistemadentista.controllers to javafx.fxml;
+
     exports org.example.javafxsistemadentista;
     exports org.example.javafxsistemadentista.controllers;
+    exports org.example.javafxsistemadentista.entities;
 }

@@ -124,4 +124,37 @@ public class PatientDAO implements IPatientDAO {
         }
         return patients;
     }
+
+    public List<Patient> findByName(String name) throws SQLException {
+        List<Patient> patients = new ArrayList<>();
+        String sql = "SELECT * FROM patients WHERE name LIKE ?";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + name + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Patient patient = new Patient();
+                    patient.setId(rs.getInt("id"));
+                    patient.setName(rs.getString("name"));
+                    patient.setCpf(rs.getString("cpf"));
+                    patient.setPhone(rs.getString("phone"));
+                    patient.setEmail(rs.getString("email"));
+
+                    String birthDateStr = rs.getString("birth_date");
+                    if (birthDateStr != null && !birthDateStr.isEmpty()) {
+                        patient.setBirthDate(LocalDate.parse(birthDateStr));
+                    }
+
+                    patient.setAddress(rs.getString("address"));
+                    patients.add(patient);
+                }
+            }
+        }
+
+        return patients;
+    }
+
 }
