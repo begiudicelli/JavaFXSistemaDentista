@@ -22,12 +22,21 @@ public class SearchPatientController implements Initializable {
     //Table view
     @FXML private TableView<Patient> patientsTableView;
     @FXML private TableColumn<Patient, Integer> idColumn;
+    @FXML private TableColumn<Patient, String> nameColumn;
+    @FXML private TableColumn<Patient, String> cpfColumn;
+    @FXML private TableColumn<Patient, String> phoneColumn;
+    @FXML private TableColumn<Patient, String> emailColumn;
+    @FXML private TableColumn<Patient, String> addressColumn;
+    @FXML private TableColumn<Patient, String> birthDateColumn;
 
 
     // Personal Data Tab
     @FXML private Text idLabel;
     @FXML private Text nameLabel;
     @FXML private Text cpfLabel;
+    @FXML private Text phoneLabel;
+    @FXML private Text emailLabel;
+    @FXML private Text addressLabel;
     @FXML private Text birthDateLabel;
 
     // Profile Tab
@@ -42,6 +51,12 @@ public class SearchPatientController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 
         patientsTableView.getSelectionModel().selectedItemProperty().addListener((
                 obs, oldSelection, newSelection)->{
@@ -54,6 +69,12 @@ public class SearchPatientController implements Initializable {
 
     private void loadPatientData(Patient patient){
         idLabel.setText(String.valueOf(patient.getId()));
+        nameLabel.setText(patient.getName());
+        cpfLabel.setText(patient.getCpf());
+        phoneLabel.setText(patient.getPhone());
+        emailLabel.setText(patient.getEmail());
+        addressLabel.setText(patient.getAddress());
+        birthDateLabel.setText(patient.getBirthDate().toString());
         // other data load, patient profile etc
     }
 
@@ -79,7 +100,6 @@ public class SearchPatientController implements Initializable {
             }
         } catch (Exception e) {
             showErrorAlert("Erro ao buscar paciente.");
-            e.printStackTrace();
         }
     }
 

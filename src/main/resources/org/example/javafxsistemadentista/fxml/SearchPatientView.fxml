@@ -54,6 +54,9 @@
                         <TableColumn fx:id="idColumn" text="ID"/>
                         <TableColumn fx:id="nameColumn" text="Nome"/>
                         <TableColumn fx:id="cpfColumn" text="CPF"/>
+                        <TableColumn fx:id="phoneColumn" text="Celular"/>
+                        <TableColumn fx:id="emailColumn" text="Email"/>
+                        <TableColumn fx:id="addressColumn" text="Endereco"/>
                         <TableColumn fx:id="birthDateColumn" text="Data de Nascimento"/>
                     </columns>
                 </TableView>
@@ -90,8 +93,14 @@
                                                 <Text fx:id="nameLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                                                 <Label text="CPF:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                                                 <Text fx:id="cpfLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                                                <Label text="Data de Nascimento:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                                                <Text fx:id="birthDateLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                                <Label text="Numero celular: " GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                                <Text fx:id="phoneLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                                <Label text="Email: " GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                                <Text fx:id="emailLabel" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                                                <Label text="Endereco: " GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                                                <Text fx:id="addressLabel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                                                <Label text="Data de Nascimento:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                                                <Text fx:id="birthDateLabel" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
                                             </GridPane>
                                         </VBox>
                                     </content>

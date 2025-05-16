@@ -8,20 +8,20 @@ public class Patient {
     private String cpf;
     private String phone;
     private String email;
-    private LocalDate birthDate;
     private String address;
+    private LocalDate birthDate;
 
     private PatientProfile patientProfile;
 
     public Patient() {}
 
-    public Patient(String name, String cpf, String phone, String email, LocalDate birthDate, String address) {
+    public Patient(String name, String cpf, String phone, String email, String address, LocalDate birthDate) {
         this.name = name;
         this.cpf = cpf;
         this.phone = phone;
         this.email = email;
-        this.birthDate = birthDate;
         this.address = address;
+        this.birthDate = birthDate;
     }
 
     public Integer getId() {
