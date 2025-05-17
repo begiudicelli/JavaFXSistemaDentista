@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import org.example.javafxsistemadentista.entities.Patient;
 import org.example.javafxsistemadentista.entities.PatientProfile;
 import org.example.javafxsistemadentista.services.PatientService;
+import org.example.javafxsistemadentista.util.Alerts;
 
 import java.net.URL;
 import java.util.List;
@@ -50,14 +51,7 @@ public class SearchPatientController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
-
+        initializeColumns();
         patientsTableView.getSelectionModel().selectedItemProperty().addListener((
                 obs, oldSelection, newSelection)->{
             if(newSelection != null){
@@ -65,7 +59,6 @@ public class SearchPatientController implements Initializable {
             }
         });
     }
-
 
     private void loadPatientData(Patient patient){
         idLabel.setText(String.valueOf(patient.getId()));
@@ -96,10 +89,10 @@ public class SearchPatientController implements Initializable {
             if(!patientsFound.isEmpty()){
                 patientsTableView.getItems().setAll(patientsFound);
             }else{
-                showErrorAlert("Nenhum paciente encontrado.");
+                Alerts.showErrorAlert("Nenhum paciente encontrado.");
             }
         } catch (Exception e) {
-            showErrorAlert("Erro ao buscar paciente.");
+            Alerts.showErrorAlert("Erro ao buscar paciente.");
         }
     }
 
@@ -123,20 +116,14 @@ public class SearchPatientController implements Initializable {
         // Handle appointment save
     }
 
-    private void showErrorAlert(String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erro ao salvar paciente");
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-
-    public void showPatient(PatientProfile profile) {
-        // Update UI with patient data
-        nameLabel.setText(profile.getPatient().getName());
-        cpfLabel.setText(profile.getPatient().getCpf());
-        // Update other fields as needed
+    private void initializeColumns(){
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
     }
 
 }

@@ -11,13 +11,7 @@ import java.util.List;
 
 public class PatientDAO implements IPatientDAO {
 
-    private Connection connection;
-
     public PatientDAO() {
-    }
-
-    public PatientDAO(Connection conn) {
-        this.connection = conn;
     }
 
     @Override

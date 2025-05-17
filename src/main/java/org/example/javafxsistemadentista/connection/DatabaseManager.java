@@ -10,14 +10,12 @@ public class DatabaseManager {
     private static Connection connection;
     private static boolean isInitialized = false;
 
-    // Private constructor to prevent instantiation
     private DatabaseManager() {}
 
     public static Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             connection = DriverManager.getConnection(DB_URL);
 
-            // Only initialize the database if it hasn't been initialized yet
             if (!isInitialized) {
                 initializeDatabase(connection);
                 isInitialized = true;
@@ -28,10 +26,10 @@ public class DatabaseManager {
 
     private static void initializeDatabase(Connection conn) {
         try (Statement stmt = conn.createStatement()) {
-            // Enable foreign keys
+            // Enable foreign key constraints
             stmt.execute("PRAGMA foreign_keys = ON");
 
-            // Create patients table
+            // patients
             stmt.execute("CREATE TABLE IF NOT EXISTS patients (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
@@ -44,17 +42,15 @@ public class DatabaseManager {
                     "UNIQUE(cpf)," +
                     "UNIQUE(phone))");
 
-            // Create patient_profiles table
+            // patient_profiles
             stmt.execute("CREATE TABLE IF NOT EXISTS patient_profiles (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "patient_id INTEGER NOT NULL," +
-                    "blood_type TEXT," +
-                    "allergies TEXT," +
                     "notes TEXT," +
                     "FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE," +
                     "UNIQUE(patient_id))");
 
-            // Create dentists table
+            // dentists
             stmt.execute("CREATE TABLE IF NOT EXISTS dentists (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
@@ -64,7 +60,7 @@ public class DatabaseManager {
                     "email TEXT," +
                     "UNIQUE(cpf))");
 
-            // Create employees table
+            // employees
             stmt.execute("CREATE TABLE IF NOT EXISTS employees (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "cpf TEXT NOT NULL," +
@@ -74,27 +70,27 @@ public class DatabaseManager {
                     "email TEXT," +
                     "UNIQUE(cpf))");
 
-            // Create treatments table
+            // treatments
             stmt.execute("CREATE TABLE IF NOT EXISTS treatments (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
                     "cost REAL NOT NULL DEFAULT 0.0," +
                     "description TEXT)");
 
-            // Create exams table
+            // exams
             stmt.execute("CREATE TABLE IF NOT EXISTS exams (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "patient_id INTEGER NOT NULL," +
+                    "patient_profile_id INTEGER NOT NULL," +
                     "type TEXT NOT NULL," +
                     "requested_by INTEGER NOT NULL," +
                     "request_date TEXT DEFAULT (datetime('now', 'localtime'))," +
                     "result_path TEXT," +
                     "status TEXT NOT NULL DEFAULT 'Requested'," +
                     "notes TEXT," +
-                    "FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY (patient_profile_id) REFERENCES patient_profiles(id) ON DELETE CASCADE," +
                     "FOREIGN KEY (requested_by) REFERENCES dentists(id))");
 
-            // Create appointments table
+            // appointments
             stmt.execute("CREATE TABLE IF NOT EXISTS appointments (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "patient_id INTEGER NOT NULL," +
@@ -103,14 +99,14 @@ public class DatabaseManager {
                     "date_time TEXT NOT NULL," +
                     "duration INTEGER NOT NULL DEFAULT 30," +
                     "status TEXT NOT NULL DEFAULT 'Scheduled'," +
-                    "price REAL DEFAULT 0.0," +
                     "notes TEXT," +
+                    "total_price REAL DEFAULT 0.0," +
                     "created_at TEXT DEFAULT (datetime('now', 'localtime'))," +
                     "FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE," +
                     "FOREIGN KEY (dentist_id) REFERENCES dentists(id)," +
                     "FOREIGN KEY (employee_id) REFERENCES employees(id))");
 
-            // Create appointment_treatments table
+            // appointment_treatments
             stmt.execute("CREATE TABLE IF NOT EXISTS appointment_treatments (" +
                     "appointment_id INTEGER NOT NULL," +
                     "treatment_id INTEGER NOT NULL," +
@@ -120,17 +116,18 @@ public class DatabaseManager {
                     "FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE CASCADE," +
                     "FOREIGN KEY (treatment_id) REFERENCES treatments(id))");
 
-            // Create indexes
+            // Indexes
             stmt.execute("CREATE INDEX IF NOT EXISTS idx_appointments_patient ON appointments(patient_id)");
             stmt.execute("CREATE INDEX IF NOT EXISTS idx_appointments_dentist ON appointments(dentist_id)");
             stmt.execute("CREATE INDEX IF NOT EXISTS idx_appointments_datetime ON appointments(date_time)");
-            stmt.execute("CREATE INDEX IF NOT EXISTS idx_exams_patient ON exams(patient_id)");
+            stmt.execute("CREATE INDEX IF NOT EXISTS idx_exams_patient_profile ON exams(patient_profile_id)");
 
         } catch (SQLException e) {
             System.err.println("Error initializing database: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
 
     public static void closeConnection() {
         try {

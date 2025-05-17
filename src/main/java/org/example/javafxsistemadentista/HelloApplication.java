@@ -15,9 +15,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        //DatabaseReset.resetDatabase();
-
+        //DatabaseManager.resetDatabase();
         try {
             Connection conn = DatabaseManager.getConnection();
             System.out.println("Database connection established successfully");

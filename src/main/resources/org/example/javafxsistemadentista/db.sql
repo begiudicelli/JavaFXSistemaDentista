@@ -19,8 +19,6 @@ CREATE TABLE IF NOT EXISTS patients (
 CREATE TABLE IF NOT EXISTS patient_profiles (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     patient_id INTEGER NOT NULL,
-    blood_type TEXT,
-    allergies TEXT,
     notes TEXT,
     FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
     UNIQUE (patient_id)  -- One-to-one relationship
@@ -40,8 +38,8 @@ CREATE TABLE IF NOT EXISTS dentists (
 -- 4. employees (clinic staff)
 CREATE TABLE IF NOT EXISTS employees (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    cpf TEXT NOT NULL,
     name TEXT NOT NULL,
+    cpf TEXT NOT NULL,
     role TEXT NOT NULL,
     phone TEXT,
     email TEXT,
@@ -59,14 +57,14 @@ CREATE TABLE IF NOT EXISTS treatments (
 -- 6. exams (patient medical exams)
 CREATE TABLE IF NOT EXISTS exams (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    patient_id INTEGER NOT NULL,
+    patient_profile_id INTEGER NOT NULL,
     type TEXT NOT NULL,
     requested_by INTEGER NOT NULL,  -- Dentist ID
     request_date TEXT DEFAULT (datetime('now', 'localtime')),
     result_path TEXT,
     status TEXT NOT NULL DEFAULT 'Requested',
     notes TEXT,
-    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
+    FOREIGN KEY (patient_profile_id) REFERENCES patient_profiles(id) ON DELETE CASCADE,
     FOREIGN KEY (requested_by) REFERENCES dentists(id)
 );
 
@@ -81,6 +79,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     status TEXT NOT NULL DEFAULT 'Scheduled',
     notes TEXT,
     created_at TEXT DEFAULT (datetime('now', 'localtime')),
+    total_price REAL NOT NULL,
     FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
     FOREIGN KEY (dentist_id) REFERENCES dentists(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
