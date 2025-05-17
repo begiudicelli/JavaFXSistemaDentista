@@ -10,8 +10,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.javafxsistemadentista.entities.Patient;
-import org.example.javafxsistemadentista.entities.PatientProfile;
 import org.example.javafxsistemadentista.services.PatientService;
+import org.example.javafxsistemadentista.util.Alerts;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -31,6 +31,9 @@ public class PatientController implements Initializable {
     private DatePicker birthDatePicker;
     @FXML
     private TextField addressField;
+    @FXML
+    private TextField notesField;
+
     @FXML
     private Button saveButton;
     @FXML
@@ -56,14 +59,11 @@ public class PatientController implements Initializable {
             patient.setEmail(emailField.getText());
             patient.setBirthDate(birthDatePicker.getValue());
             patient.setAddress(addressField.getText());
-
-            patient.setPatientProfile(new PatientProfile());
-
+            patient.setNotes(notesField.getText());
             patientService.savePatient(patient);
-
-            showInfoAlert("Paciente cadastrado com sucesso.");
+            Alerts.showInfoAlert("Paciente cadastrado com sucesso.");
         } catch (Exception e) {
-            showErrorAlert(e.getMessage());
+            Alerts.showErrorAlert(e.getMessage());
         }
     }
 
@@ -78,9 +78,9 @@ public class PatientController implements Initializable {
             existingPatient.setBirthDate(birthDatePicker.getValue());
             existingPatient.setAddress(addressField.getText());
             patientService.updatePatient(existingPatient);
-            showErrorAlert("Paciente editado com sucesso.");
+            Alerts.showErrorAlert("Paciente editado com sucesso.");
         }catch(Exception e){
-            showErrorAlert(e.getMessage());
+            Alerts.showErrorAlert(e.getMessage());
         }
 
     }
@@ -96,7 +96,7 @@ public class PatientController implements Initializable {
             birthDatePicker.setValue(foundPatient.getBirthDate());
             addressField.setText(foundPatient.getAddress());
         } else {
-            showErrorAlert("Paciente não encontrado.");
+            Alerts.showErrorAlert("Paciente nao encontrado.");
         }
     }
 
@@ -108,21 +108,5 @@ public class PatientController implements Initializable {
     private void closeForm() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
-    }
-
-    private void showInfoAlert(String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informação");
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-    private void showErrorAlert(String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erro ao salvar paciente");
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 }

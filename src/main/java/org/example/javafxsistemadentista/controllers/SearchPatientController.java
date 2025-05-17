@@ -7,7 +7,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import org.example.javafxsistemadentista.entities.Patient;
-import org.example.javafxsistemadentista.entities.PatientProfile;
 import org.example.javafxsistemadentista.services.PatientService;
 import org.example.javafxsistemadentista.util.Alerts;
 
@@ -61,6 +60,15 @@ public class SearchPatientController implements Initializable {
     }
 
     private void loadPatientData(Patient patient){
+        loadPatientPersonalData(patient);
+        loadPatientProfileData(patient);
+    }
+
+    private void loadPatientProfileData(Patient patient) {
+
+    }
+
+    private void loadPatientPersonalData(Patient patient){
         idLabel.setText(String.valueOf(patient.getId()));
         nameLabel.setText(patient.getName());
         cpfLabel.setText(patient.getCpf());
@@ -68,7 +76,6 @@ public class SearchPatientController implements Initializable {
         emailLabel.setText(patient.getEmail());
         addressLabel.setText(patient.getAddress());
         birthDateLabel.setText(patient.getBirthDate().toString());
-        // other data load, patient profile etc
     }
 
     @FXML

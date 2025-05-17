@@ -110,6 +110,10 @@
                         <Label styleClass="form-label" text="Endereço:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                         <TextField fx:id="addressField" promptText="Rua, número, bairro, cidade" styleClass="form-field"
                                    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                        <Label styleClass="form-label" text="Notas:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <TextField fx:id="notesField" promptText="Motivo, reclamacoes, sintomas" styleClass="form-field"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                     </GridPane>
                 </VBox>
             </VBox>

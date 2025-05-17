@@ -29,7 +29,7 @@ public class DatabaseManager {
             // Enable foreign key constraints
             stmt.execute("PRAGMA foreign_keys = ON");
 
-            // patients
+            // patients table (simplificada, incluindo notes diretamente)
             stmt.execute("CREATE TABLE IF NOT EXISTS patients (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
@@ -38,17 +38,10 @@ public class DatabaseManager {
                     "email TEXT," +
                     "birth_date TEXT," +
                     "address TEXT," +
+                    "notes TEXT," +
                     "created_at TEXT DEFAULT (datetime('now', 'localtime'))," +
                     "UNIQUE(cpf)," +
                     "UNIQUE(phone))");
-
-            // patient_profiles
-            stmt.execute("CREATE TABLE IF NOT EXISTS patient_profiles (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "patient_id INTEGER NOT NULL," +
-                    "notes TEXT," +
-                    "FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE," +
-                    "UNIQUE(patient_id))");
 
             // dentists
             stmt.execute("CREATE TABLE IF NOT EXISTS dentists (" +
@@ -63,8 +56,8 @@ public class DatabaseManager {
             // employees
             stmt.execute("CREATE TABLE IF NOT EXISTS employees (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "cpf TEXT NOT NULL," +
                     "name TEXT NOT NULL," +
+                    "cpf TEXT NOT NULL," +
                     "role TEXT NOT NULL," +
                     "phone TEXT," +
                     "email TEXT," +
@@ -77,17 +70,17 @@ public class DatabaseManager {
                     "cost REAL NOT NULL DEFAULT 0.0," +
                     "description TEXT)");
 
-            // exams
+            // exams (agora referenciando patients diretamente)
             stmt.execute("CREATE TABLE IF NOT EXISTS exams (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "patient_profile_id INTEGER NOT NULL," +
+                    "patient_id INTEGER NOT NULL," +
                     "type TEXT NOT NULL," +
                     "requested_by INTEGER NOT NULL," +
                     "request_date TEXT DEFAULT (datetime('now', 'localtime'))," +
                     "result_path TEXT," +
-                    "status TEXT NOT NULL DEFAULT 'Requested'," +
+                    "status TEXT NOT NULL DEFAULT 'REQUESTED'," +
                     "notes TEXT," +
-                    "FOREIGN KEY (patient_profile_id) REFERENCES patient_profiles(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE," +
                     "FOREIGN KEY (requested_by) REFERENCES dentists(id))");
 
             // appointments
@@ -97,10 +90,10 @@ public class DatabaseManager {
                     "dentist_id INTEGER NOT NULL," +
                     "employee_id INTEGER NOT NULL," +
                     "date_time TEXT NOT NULL," +
-                    "duration INTEGER NOT NULL DEFAULT 30," +
-                    "status TEXT NOT NULL DEFAULT 'Scheduled'," +
+                    "duration INTEGER NOT NULL DEFAULT 30 CHECK (duration > 0 AND duration <= 240)," +
+                    "status TEXT NOT NULL DEFAULT 'SCHEDULED' CHECK (status IN ('SCHEDULED', 'COMPLETED', 'CANCELLED', 'NO_SHOW'))," +
                     "notes TEXT," +
-                    "total_price REAL DEFAULT 0.0," +
+                    "total_price REAL NOT NULL CHECK (total_price >= 0)," +
                     "created_at TEXT DEFAULT (datetime('now', 'localtime'))," +
                     "FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE," +
                     "FOREIGN KEY (dentist_id) REFERENCES dentists(id)," +
@@ -110,7 +103,7 @@ public class DatabaseManager {
             stmt.execute("CREATE TABLE IF NOT EXISTS appointment_treatments (" +
                     "appointment_id INTEGER NOT NULL," +
                     "treatment_id INTEGER NOT NULL," +
-                    "quantity INTEGER DEFAULT 1," +
+                    "quantity INTEGER DEFAULT 1 CHECK (quantity > 0)," +
                     "notes TEXT," +
                     "PRIMARY KEY (appointment_id, treatment_id)," +
                     "FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE CASCADE," +
@@ -120,7 +113,7 @@ public class DatabaseManager {
             stmt.execute("CREATE INDEX IF NOT EXISTS idx_appointments_patient ON appointments(patient_id)");
             stmt.execute("CREATE INDEX IF NOT EXISTS idx_appointments_dentist ON appointments(dentist_id)");
             stmt.execute("CREATE INDEX IF NOT EXISTS idx_appointments_datetime ON appointments(date_time)");
-            stmt.execute("CREATE INDEX IF NOT EXISTS idx_exams_patient_profile ON exams(patient_profile_id)");
+            stmt.execute("CREATE INDEX IF NOT EXISTS idx_exams_patient ON exams(patient_id)");
 
         } catch (SQLException e) {
             System.err.println("Error initializing database: " + e.getMessage());
@@ -128,19 +121,18 @@ public class DatabaseManager {
         }
     }
 
-
     public static void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                isInitialized = false;  // Reset initialization flag when connection is closed
+                isInitialized = false;
             }
         } catch (SQLException e) {
             System.err.println("Error closing connection: " + e.getMessage());
         }
     }
 
-    // Optional: Reset database (for development/testing)
+    // Reset database (for development/testing)
     public static void resetDatabase() {
         try {
             Connection conn = getConnection();
@@ -148,7 +140,7 @@ public class DatabaseManager {
                 // Disable foreign keys temporarily
                 stmt.execute("PRAGMA foreign_keys = OFF");
 
-                // Drop all tables
+                // Drop all tables (ordem inversa por causa das constraints)
                 String[] tables = {
                         "appointment_treatments",
                         "appointments",
@@ -156,8 +148,7 @@ public class DatabaseManager {
                         "treatments",
                         "employees",
                         "dentists",
-                        "patient_profiles",
-                        "patients"
+                        "patients"  // Removida a tabela patient_profiles
                 };
 
                 for (String table : tables) {

@@ -16,8 +16,8 @@ public class PatientDAO implements IPatientDAO {
 
     @Override
     public void save(Patient patient) throws SQLException {
-        String sql = "INSERT INTO patients (name, cpf, phone, email, birth_date, address) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO patients (name, cpf, phone, email, birth_date, address, notes) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -28,6 +28,7 @@ public class PatientDAO implements IPatientDAO {
             stmt.setString(4, patient.getEmail());
             stmt.setString(5, patient.getBirthDate().toString());
             stmt.setString(6, patient.getAddress());
+            stmt.setString(7, patient.getNotes() != null ? patient.getNotes() : "");
 
             stmt.executeUpdate();
 
@@ -50,19 +51,7 @@ public class PatientDAO implements IPatientDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    Patient patient = new Patient();
-                    patient.setId(rs.getInt("id"));
-                    patient.setName(rs.getString("name"));
-                    patient.setCpf(rs.getString("cpf"));
-                    patient.setPhone(rs.getString("phone"));
-                    patient.setEmail(rs.getString("email"));
-                    String birthDateStr = rs.getString("birth_date");
-                    if (birthDateStr != null && !birthDateStr.isEmpty()) {
-                        patient.setBirthDate(LocalDate.parse(birthDateStr));
-                    }
-
-                    patient.setAddress(rs.getString("address"));
-                    return patient;
+                    return mapResultSetToPatient(rs);
                 }
             }
         } catch (SQLException e) {
@@ -73,7 +62,7 @@ public class PatientDAO implements IPatientDAO {
 
     @Override
     public void update(Patient patient) {
-        String sql = "UPDATE patients SET name = ?, phone = ?, email = ?, birth_date = ?, address = ? WHERE cpf = ?";
+        String sql = "UPDATE patients SET name = ?, phone = ?, email = ?, birth_date = ?, address = ?, notes = ? WHERE cpf = ?";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -83,7 +72,8 @@ public class PatientDAO implements IPatientDAO {
             stmt.setString(3, patient.getEmail());
             stmt.setString(4, patient.getBirthDate().toString());
             stmt.setString(5, patient.getAddress());
-            stmt.setString(6, patient.getCpf());
+            stmt.setString(6, patient.getNotes() != null ? patient.getNotes() : "");
+            stmt.setString(7, patient.getCpf());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -101,25 +91,13 @@ public class PatientDAO implements IPatientDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Patient patient = new Patient();
-                patient.setId(rs.getInt("id"));
-                patient.setName(rs.getString("name"));
-                patient.setCpf(rs.getString("cpf"));
-                patient.setPhone(rs.getString("phone"));
-                patient.setEmail(rs.getString("email"));
-                String birthDateStr = rs.getString("birth_date");
-                if (birthDateStr != null && !birthDateStr.isEmpty()) {
-                    patient.setBirthDate(LocalDate.parse(birthDateStr));
-                }
-
-                patient.setAddress(rs.getString("address"));
-                patients.add(patient);
+                patients.add(mapResultSetToPatient(rs));
             }
         }
         return patients;
     }
 
-    public List<Patient> findByName(String name) throws SQLException {
+    public List<Patient> findByName(String name) {
         List<Patient> patients = new ArrayList<>();
         String sql = "SELECT * FROM patients WHERE name LIKE ?";
 
@@ -127,28 +105,35 @@ public class PatientDAO implements IPatientDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Patient patient = new Patient();
-                    patient.setId(rs.getInt("id"));
-                    patient.setName(rs.getString("name"));
-                    patient.setCpf(rs.getString("cpf"));
-                    patient.setPhone(rs.getString("phone"));
-                    patient.setEmail(rs.getString("email"));
-
-                    String birthDateStr = rs.getString("birth_date");
-                    if (birthDateStr != null && !birthDateStr.isEmpty()) {
-                        patient.setBirthDate(LocalDate.parse(birthDateStr));
-                    }
-
-                    patient.setAddress(rs.getString("address"));
-                    patients.add(patient);
-                }
+            while (rs.next()) {
+                patients.add(mapResultSetToPatient(rs));
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao buscar pacientes por nome.", e);
         }
 
         return patients;
     }
 
+    private Patient mapResultSetToPatient(ResultSet rs) throws SQLException {
+        Patient patient = new Patient();
+        patient.setId(rs.getInt("id"));
+        patient.setName(rs.getString("name"));
+        patient.setCpf(rs.getString("cpf"));
+        patient.setPhone(rs.getString("phone"));
+        patient.setEmail(rs.getString("email"));
+        patient.setAddress(rs.getString("address"));
+        patient.setNotes(rs.getString("notes"));
+
+        String birthDateStr = rs.getString("birth_date");
+        if (birthDateStr != null && !birthDateStr.isEmpty()) {
+            patient.setBirthDate(LocalDate.parse(birthDateStr));
+        }
+
+        return patient;
+    }
 }

@@ -1,6 +1,7 @@
 package org.example.javafxsistemadentista.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Patient {
     private Integer id;
@@ -10,20 +11,24 @@ public class Patient {
     private String email;
     private String address;
     private LocalDate birthDate;
+    private String notes;
 
-    private PatientProfile patientProfile;
+    private List<Appointments> appointmentsList;
+    private List<Exam> examList;
 
     public Patient() {}
 
-    public Patient(String name, String cpf, String phone, String email, String address, LocalDate birthDate) {
+    public Patient(String name, String cpf, String phone, String email, String address, LocalDate birthDate, String notes) {
         this.name = name;
         this.cpf = cpf;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.birthDate = birthDate;
+        this.notes = notes;
     }
 
+    // Getters e Setters
     public Integer getId() {
         return id;
     }
@@ -80,12 +85,28 @@ public class Patient {
         this.address = address;
     }
 
-    public PatientProfile getPatientProfile() {
-        return patientProfile;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setPatientProfile(PatientProfile patientProfile) {
-        this.patientProfile = patientProfile;
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public List<Appointments> getAppointmentsList() {
+        return appointmentsList;
+    }
+
+    public void setAppointmentsList(List<Appointments> appointmentsList) {
+        this.appointmentsList = appointmentsList;
+    }
+
+    public List<Exam> getExamList() {
+        return examList;
+    }
+
+    public void setExamList(List<Exam> examList) {
+        this.examList = examList;
     }
 
     @Override
@@ -96,8 +117,9 @@ public class Patient {
                 ", cpf='" + cpf + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", birthDate=" + birthDate +
                 ", address='" + address + '\'' +
+                ", birthDate=" + birthDate +
+                ", notes='" + notes + '\'' +
                 '}';
     }
 }
