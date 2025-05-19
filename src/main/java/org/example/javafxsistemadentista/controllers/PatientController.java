@@ -3,7 +3,6 @@ package org.example.javafxsistemadentista.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.example.javafxsistemadentista.entities.Patient;
@@ -30,9 +29,6 @@ public class PatientController implements Initializable {
     private TextField addressField;
     @FXML
     private TextField notesField;
-
-    @FXML
-    private Button saveButton;
 
     private final PatientService patientService = new PatientService();
 

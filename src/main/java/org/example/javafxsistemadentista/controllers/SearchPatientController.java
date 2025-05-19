@@ -16,52 +16,31 @@ import java.util.ResourceBundle;
 public class SearchPatientController implements Initializable {
 
     // Search Fields
-    @FXML
-    private TextField searchNameField;
-    @FXML
-    private TextField searchCpfField;
+    @FXML private TextField searchNameField;
 
     // Table view
-    @FXML
-    private TableView<Patient> patientsTableView;
-    @FXML
-    private TableColumn<Patient, Integer> idColumn;
-    @FXML
-    private TableColumn<Patient, String> nameColumn;
-    @FXML
-    private TableColumn<Patient, String> cpfColumn;
-    @FXML
-    private TableColumn<Patient, String> phoneColumn;
-    @FXML
-    private TableColumn<Patient, String> emailColumn;
-    @FXML
-    private TableColumn<Patient, String> addressColumn;
-    @FXML
-    private TableColumn<Patient, String> birthDateColumn;
+    @FXML private TableView<Patient> patientsTableView;
+    @FXML private TableColumn<Patient, Integer> idColumn;
+    @FXML private TableColumn<Patient, String> nameColumn;
+    @FXML private TableColumn<Patient, String> cpfColumn;
+    @FXML private TableColumn<Patient, String> phoneColumn;
+    @FXML private TableColumn<Patient, String> emailColumn;
+    @FXML private TableColumn<Patient, String> addressColumn;
+    @FXML private TableColumn<Patient, String> birthDateColumn;
 
     // Personal Data Tab
-    @FXML
-    private TextField idField;
-    @FXML
-    private TextField nameField;
-    @FXML
-    private TextField cpfField;
-    @FXML
-    private TextField phoneField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private TextField addressField;
-    @FXML
-    private DatePicker birthDatePicker;
-    @FXML
-    private TextField notesField;
+    @FXML private TextField idField;
+    @FXML private TextField nameField;
+    @FXML private TextField cpfField;
+    @FXML private TextField phoneField;
+    @FXML private TextField emailField;
+    @FXML private TextField addressField;
+    @FXML private DatePicker birthDatePicker;
+    @FXML private TextField notesField;
 
     // Profile Tab
-    @FXML
-    private TextArea observationsTextArea;
-    @FXML
-    private TableView<Patient> examsTableView;
+    @FXML private TextArea observationsTextArea;
+    @FXML private TableView<Patient> examsTableView;
 
     // Appointments Tab
     @FXML

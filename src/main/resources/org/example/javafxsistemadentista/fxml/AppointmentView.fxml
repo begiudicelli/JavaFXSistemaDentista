@@ -67,7 +67,7 @@
                     <HBox spacing="15.0" alignment="CENTER_LEFT">
                         <VBox spacing="5">
                             <Label text="Nome do Paciente:"/>
-                            <TextField fx:id="patientNameField" promptText="Digite o nome do paciente" prefWidth="250.0"/>
+                            <TextField fx:id="searchNameField" promptText="Digite o nome do paciente" prefWidth="250.0"/>
                         </VBox>
                         <Button fx:id="searchPatientButton" text="Buscar" onAction="#handlePatientSearch"/>
                     </HBox>
@@ -125,22 +125,6 @@
                         <!-- Employee Selection -->
                         <Label styleClass="form-label" text="Funcionário:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                         <ComboBox fx:id="employeeComboBox" prefWidth="250.0" promptText="Selecione o funcionário" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-                        <!-- Date and Time Selection -->
-                        <Label styleClass="form-label" text="Data:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                            <DatePicker fx:id="appointmentDatePicker" promptText="Selecione a data"/>
-                            <Label text="Horário:"/>
-                            <ComboBox fx:id="timeComboBox" prefWidth="100" promptText="Hora"/>
-                        </HBox>
-
-                        <!-- Duration Selection -->
-                        <Label styleClass="form-label" text="Duração (minutos):" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                        <Spinner fx:id="durationSpinner" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-
-                        <!-- Status Selection -->
-                        <Label styleClass="form-label" text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-                        <ComboBox fx:id="statusComboBox" prefWidth="200.0" promptText="Selecione o status" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                     </GridPane>
                 </VBox>
 
@@ -175,7 +159,6 @@
                     </Text>
                     <HBox spacing="15.0" alignment="CENTER_LEFT">
                         <ComboBox fx:id="treatmentTypeComboBox" prefWidth="250.0" promptText="Selecione o tratamento"/>
-                        <TextField fx:id="treatmentPriceField" prefWidth="100.0" promptText="Preço"/>
                         <Button fx:id="addTreatmentButton" text="Adicionar" onAction="#handleAddTreatment"/>
                     </HBox>
                     <TableView fx:id="treatmentsTableView" prefHeight="150.0">
