@@ -38,6 +38,7 @@ public class SearchPatientController implements Initializable {
     @FXML private Text emailLabel;
     @FXML private Text addressLabel;
     @FXML private Text birthDateLabel;
+    @FXML private Text notesLabel;
 
     // Profile Tab
     @FXML private TextArea observationsTextArea;
@@ -61,11 +62,6 @@ public class SearchPatientController implements Initializable {
 
     private void loadPatientData(Patient patient){
         loadPatientPersonalData(patient);
-        loadPatientProfileData(patient);
-    }
-
-    private void loadPatientProfileData(Patient patient) {
-
     }
 
     private void loadPatientPersonalData(Patient patient){
@@ -76,6 +72,7 @@ public class SearchPatientController implements Initializable {
         emailLabel.setText(patient.getEmail());
         addressLabel.setText(patient.getAddress());
         birthDateLabel.setText(patient.getBirthDate().toString());
+        notesLabel.setText(patient.getNotes());
     }
 
     @FXML

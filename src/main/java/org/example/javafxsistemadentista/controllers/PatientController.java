@@ -36,10 +36,6 @@ public class PatientController implements Initializable {
 
     @FXML
     private Button saveButton;
-    @FXML
-    private Button cancelButton;
-    @FXML
-    private Button searchButton;
 
     private final PatientService patientService = new PatientService();
     private Patient patient;
@@ -67,46 +63,4 @@ public class PatientController implements Initializable {
         }
     }
 
-    @FXML
-    void handleUpdate(){
-        String cpf = cpfField.getText();
-        Patient existingPatient = patientService.searchPatientByCpf(cpf);
-        try{
-            existingPatient.setName(nameField.getText());
-            existingPatient.setPhone(phoneField.getText());
-            existingPatient.setEmail(emailField.getText());
-            existingPatient.setBirthDate(birthDatePicker.getValue());
-            existingPatient.setAddress(addressField.getText());
-            patientService.updatePatient(existingPatient);
-            Alerts.showErrorAlert("Paciente editado com sucesso.");
-        }catch(Exception e){
-            Alerts.showErrorAlert(e.getMessage());
-        }
-
-    }
-
-    @FXML
-    void handleSearch(){
-        String cpf = cpfField.getText();
-        Patient foundPatient = patientService.searchPatientByCpf(cpf);
-        if (foundPatient != null) {
-            nameField.setText(foundPatient.getName());
-            phoneField.setText(foundPatient.getPhone());
-            emailField.setText(foundPatient.getEmail());
-            birthDatePicker.setValue(foundPatient.getBirthDate());
-            addressField.setText(foundPatient.getAddress());
-        } else {
-            Alerts.showErrorAlert("Paciente nao encontrado.");
-        }
-    }
-
-    @FXML
-    void handleCancel(ActionEvent event) {
-        closeForm();
-    }
-
-    private void closeForm() {
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
-    }
 }

@@ -12,6 +12,9 @@
                 <MenuItem text="Adicionar" onAction="#handleAddPatient"/>
                 <MenuItem text="Buscar" onAction="#handleSearchPatient"/>
             </Menu>
+            <Menu text="Consultas">
+                <MenuItem text="Marcar" onAction="#handleAppointment"/>
+            </Menu>
         </MenuBar>
     </top>
     <center>

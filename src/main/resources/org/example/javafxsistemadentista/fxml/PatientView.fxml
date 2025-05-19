@@ -124,9 +124,6 @@
             <padding>
                 <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
             </padding>
-            <Button fx:id="searchButton" onAction="#handleSearch" styleClass="save-button" text="Buscar" />
-            <Button fx:id="editButton" onAction="#handleUpdate" styleClass="save-button" text="Editar" />
-            <Button fx:id="cancelButton" onAction="#handleCancel" styleClass="cancel-button" text="Cancelar" />
             <Button fx:id="saveButton" onAction="#handleSave" styleClass="save-button" text="Salvar" />
         </HBox>
     </bottom>

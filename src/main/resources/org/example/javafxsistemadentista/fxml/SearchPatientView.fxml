@@ -15,7 +15,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.text.Text?>
 <?import javafx.geometry.Insets?>
 
@@ -101,36 +100,9 @@
                                                 <Text fx:id="addressLabel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
                                                 <Label text="Data de Nascimento:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
                                                 <Text fx:id="birthDateLabel" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                                                <Label text="Notas:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                                                <Text fx:id="notesLabel" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
                                             </GridPane>
-                                        </VBox>
-                                    </content>
-                                </ScrollPane>
-                            </content>
-                        </Tab>
-
-                        <!-- Profile Tab -->
-                        <Tab text="Perfil do Paciente">
-                            <content>
-                                <ScrollPane fitToWidth="true">
-                                    <content>
-                                        <VBox spacing="10">
-                                            <padding>
-                                                <Insets top="10" right="10" bottom="10" left="10" />
-                                            </padding>
-                                            <Label text="Observações:"/>
-                                            <TextArea fx:id="observationsTextArea" editable="false" wrapText="true" prefRowCount="4"/>
-                                            <Label text="Exames Realizados:"/>
-                                            <TableView fx:id="examsTableView">
-                                                <columns>
-                                                    <TableColumn fx:id="examIdColumn" text="ID"/>
-                                                    <TableColumn fx:id="examNameColumn" text="Nome"/>
-                                                    <TableColumn fx:id="examDateColumn" text="Data"/>
-                                                </columns>
-                                            </TableView>
-                                            <HBox spacing="10">
-                                                <Button text="Editar Perfil" onAction="#onEditProfile"/>
-                                                <Button text="Salvar Perfil" onAction="#onSaveProfile"/>
-                                            </HBox>
                                         </VBox>
                                     </content>
                                 </ScrollPane>
@@ -147,8 +119,8 @@
                                     <TableView fx:id="appointmentsTableView">
                                         <columns>
                                             <TableColumn fx:id="appointmentIdColumn" text="ID"/>
-                                            <TableColumn fx:id="appointmentDateColumn" text="Data"/>
                                             <TableColumn fx:id="appointmentDoctorColumn" text="Médico"/>
+                                            <TableColumn fx:id="appointmentDateColumn" text="Data"/>
                                         </columns>
                                     </TableView>
                                     <HBox spacing="10">
@@ -156,6 +128,32 @@
                                         <Button text="Salvar Consulta" onAction="#onSaveAppointment"/>
                                     </HBox>
                                 </VBox>
+                            </content>
+                        </Tab>
+
+                        <!-- Exam tab -->
+                        <Tab text="Exames">
+                            <content>
+                                <ScrollPane fitToWidth="true">
+                                    <content>
+                                        <VBox spacing="10">
+                                            <padding>
+                                                <Insets top="10" right="10" bottom="10" left="10" />
+                                            </padding>
+                                            <TableView fx:id="examsTableView">
+                                                <columns>
+                                                    <TableColumn fx:id="examIdColumn" text="ID"/>
+                                                    <TableColumn fx:id="examNameColumn" text="Nome"/>
+                                                    <TableColumn fx:id="examDateColumn" text="Data"/>
+                                                </columns>
+                                            </TableView>
+                                            <HBox spacing="10">
+                                                <Button text="Editar Perfil" onAction="#onEditProfile"/>
+                                                <Button text="Salvar Perfil" onAction="#onSaveProfile"/>
+                                            </HBox>
+                                        </VBox>
+                                    </content>
+                                </ScrollPane>
                             </content>
                         </Tab>
                     </tabs>

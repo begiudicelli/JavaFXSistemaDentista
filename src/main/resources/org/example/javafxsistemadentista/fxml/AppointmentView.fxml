@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafxsistemadentista.controllers.AppointmentController">
+    <top>
+        <VBox alignment="CENTER" styleClass="header-panel" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+            <Text styleClass="header-text" text="Agendamento de Consulta">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Text>
+            <Separator prefWidth="200.0">
+                <VBox.margin>
+                    <Insets top="10.0" />
+                </VBox.margin>
+            </Separator>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+            <VBox spacing="20.0">
+                <padding>
+                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                </padding>
+
+                <!-- Patient Search Section -->
+                <VBox styleClass="form-section">
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                    <Text styleClass="section-header" text="Busca de Paciente">
+                        <font>
+                            <Font name="System Bold" size="16.0"/>
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="10.0"/>
+                        </VBox.margin>
+                    </Text>
+                    <HBox spacing="15.0" alignment="CENTER_LEFT">
+                        <VBox spacing="5">
+                            <Label text="Nome do Paciente:"/>
+                            <TextField fx:id="patientNameField" promptText="Digite o nome do paciente" prefWidth="250.0"/>
+                        </VBox>
+                        <VBox spacing="5">
+                            <Label text="CPF:"/>
+                            <TextField fx:id="patientCpfField" promptText="Digite o CPF" prefWidth="150.0"/>
+                        </VBox>
+                        <Button fx:id="searchPatientButton" text="Buscar" onAction="#handlePatientSearch"/>
+                    </HBox>
+                    <VBox spacing="10">
+                        <VBox.margin>
+                            <Insets top="10.0"/>
+                        </VBox.margin>
+                        <Label text="Resultados da Busca:" style="-fx-font-weight: bold"/>
+                        <TableView fx:id="patientTableView" prefHeight="150.0" onMouseClicked="#handlePatientSelection">
+                            <columns>
+                                <TableColumn fx:id="patientIdColumn" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="patientNameColumn" text="Nome" prefWidth="200"/>
+                                <TableColumn fx:id="patientCpfColumn" text="CPF" prefWidth="120"/>
+                                <TableColumn fx:id="patientPhoneColumn" text="Telefone" prefWidth="150"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </VBox>
+
+                <!-- Appointment Details Section -->
+                <VBox styleClass="form-section">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <Text styleClass="section-header" text="Detalhes da Consulta">
+                        <font>
+                            <Font name="System Bold" size="16.0"/>
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="10.0"/>
+                        </VBox.margin>
+                    </Text>
+                    <GridPane hgap="15.0" vgap="15.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"/>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints vgrow="SOMETIMES"/>
+                            <RowConstraints vgrow="SOMETIMES"/>
+                            <RowConstraints vgrow="SOMETIMES"/>
+                            <RowConstraints vgrow="SOMETIMES"/>
+                            <RowConstraints vgrow="SOMETIMES"/>
+                            <RowConstraints vgrow="SOMETIMES"/>
+                        </rowConstraints>
+
+                        <!-- Patient Selected Info -->
+                        <Label styleClass="form-label" text="Paciente Selecionado:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <Text fx:id="selectedPatientText" text="Nenhum paciente selecionado" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                        <!-- Dentist Selection -->
+                        <Label styleClass="form-label" text="Dentista:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <ComboBox fx:id="dentistComboBox" prefWidth="250.0" promptText="Selecione o dentista" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <!-- Employee Selection -->
+                        <Label styleClass="form-label" text="Funcionário:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <ComboBox fx:id="employeeComboBox" prefWidth="250.0" promptText="Selecione o funcionário" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                        <!-- Date and Time Selection -->
+                        <Label styleClass="form-label" text="Data:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <DatePicker fx:id="appointmentDatePicker" promptText="Selecione a data"/>
+                            <Label text="Horário:"/>
+                            <ComboBox fx:id="timeComboBox" prefWidth="100" promptText="Hora"/>
+                        </HBox>
+
+                        <!-- Duration Selection -->
+                        <Label styleClass="form-label" text="Duração (minutos):" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                        <Spinner fx:id="durationSpinner" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                        <!-- Status Selection -->
+                        <Label styleClass="form-label" text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                        <ComboBox fx:id="statusComboBox" prefWidth="200.0" promptText="Selecione o status" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                    </GridPane>
+                </VBox>
+
+                <!-- Notes Section -->
+                <VBox styleClass="form-section">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <Text styleClass="section-header" text="Observações">
+                        <font>
+                            <Font name="System Bold" size="16.0"/>
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="10.0"/>
+                        </VBox.margin>
+                    </Text>
+                    <TextArea fx:id="notesTextArea" prefHeight="100.0" promptText="Insira observações sobre a consulta"/>
+                </VBox>
+
+                <!-- Treatments Section -->
+                <VBox styleClass="form-section">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <Text styleClass="section-header" text="Tratamentos">
+                        <font>
+                            <Font name="System Bold" size="16.0"/>
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="10.0"/>
+                        </VBox.margin>
+                    </Text>
+                    <HBox spacing="15.0" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="treatmentTypeComboBox" prefWidth="250.0" promptText="Selecione o tratamento"/>
+                        <TextField fx:id="treatmentPriceField" prefWidth="100.0" promptText="Preço"/>
+                        <Button fx:id="addTreatmentButton" text="Adicionar" onAction="#handleAddTreatment"/>
+                    </HBox>
+                    <TableView fx:id="treatmentsTableView" prefHeight="150.0">
+                        <VBox.margin>
+                            <Insets top="10.0"/>
+                        </VBox.margin>
+                        <columns>
+                            <TableColumn fx:id="treatmentIdColumn" text="ID" prefWidth="50"/>
+                            <TableColumn fx:id="treatmentNameColumn" text="Tratamento" prefWidth="200"/>
+                            <TableColumn fx:id="treatmentPriceColumn" text="Preço" prefWidth="100"/>
+                            <TableColumn fx:id="treatmentActionsColumn" text="Ações" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                        <VBox.margin>
+                            <Insets top="10.0"/>
+                        </VBox.margin>
+                        <Label text="Preço Total:"/>
+                        <Text fx:id="totalPriceText" text="R$ 0,00" style="-fx-font-weight: bold"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="button-bar">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+            <Button fx:id="cancelButton" onAction="#handleCancel" styleClass="cancel-button" text="Cancelar" />
+            <Button fx:id="saveButton" onAction="#handleSave" styleClass="save-button" text="Salvar" />
+        </HBox>
+    </bottom>
+    <effect>
+        <DropShadow>
+            <color>
+                <Color opacity="0.25" />
+            </color>
+        </DropShadow>
+    </effect>
+</BorderPane>

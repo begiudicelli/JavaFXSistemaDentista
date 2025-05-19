@@ -1,6 +1,7 @@
 package org.example.javafxsistemadentista.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Appointments {
     private int id;
@@ -12,6 +13,7 @@ public class Appointments {
     private String status;
     private String notes;
     private LocalDate createdAt;
+    private List<Treatments> treatmentsList;
     private double totalPrice;
 
     public Appointments(){

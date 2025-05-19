@@ -1,5 +1,6 @@
 package org.example.javafxsistemadentista.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +24,11 @@ public class MainController {
         loadView("/org/example/javafxsistemadentista/fxml/SearchPatientView.fxml");
     }
 
+    @FXML
+    public void handleAppointment() {
+        loadView("/org/example/javafxsistemadentista/fxml/AppointmentView.fxml");
+    }
+
     private void loadView(String fxmlPath) {
         try {
             Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
@@ -32,4 +38,5 @@ public class MainController {
             System.out.println(e.getMessage());
         }
     }
+
 }
