@@ -10,6 +10,7 @@ import org.example.javafxsistemadentista.connection.DatabaseManager;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class HelloApplication extends Application {
 
@@ -28,6 +29,7 @@ public class HelloApplication extends Application {
         Parent root = loader.load();
 
         Scene scene = new Scene(root, 800, 600);
+
         stage.setTitle("Sistema Odontológico");
         stage.setScene(scene);
         stage.show();

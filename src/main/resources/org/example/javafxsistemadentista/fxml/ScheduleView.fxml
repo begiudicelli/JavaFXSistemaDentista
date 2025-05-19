@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.javafxsistemadentista.controllers.ScheduleController"
+            prefHeight="700.0" prefWidth="1000.0"
+            styleClass="main-container">
+
+    <top>
+        <VBox spacing="15" styleClass="header-container">
+            <padding>
+                <Insets top="20" right="25" bottom="20" left="25"/>
+            </padding>
+
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" styleClass="app-title-container">
+                    <Text text="🦷" styleClass="app-icon"/>
+                    <Label text="Dental Scheduler" styleClass="app-title"/>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <VBox alignment="CENTER_RIGHT">
+                    <Label fx:id="monthYearLabel" text="May 2025" styleClass="month-year-label"/>
+                    <Label fx:id="currentDateLabel" text="Monday, May 19" styleClass="current-date"/>
+                </VBox>
+            </HBox>
+
+            <Separator />
+
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox spacing="5">
+                    <Label text="Select Dentist" styleClass="field-label"/>
+                    <ComboBox fx:id="dentistComboBox" prefWidth="220" styleClass="dentist-combo"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <HBox spacing="10" styleClass="nav-buttons-container">
+                    <Button text="Previous Week" onAction="#previousWeek" styleClass="nav-button"/>
+                    <Button text="Today" onAction="#currentWeek" styleClass="nav-button, today-button"/>
+                    <Button text="Next Week" onAction="#nextWeek" styleClass="nav-button"/>
+                </HBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox>
+            <HBox styleClass="days-header">
+                <Label text="Hours" styleClass="time-header" HBox.hgrow="NEVER" minWidth="80" prefWidth="80"/>
+                <Label text="Monday" styleClass="day-header" HBox.hgrow="ALWAYS" minWidth="120" prefWidth="120"/>
+                <Label text="Tuesday" styleClass="day-header" HBox.hgrow="ALWAYS" minWidth="120" prefWidth="120"/>
+                <Label text="Wednesday" styleClass="day-header" HBox.hgrow="ALWAYS" minWidth="120" prefWidth="120"/>
+                <Label text="Thursday" styleClass="day-header" HBox.hgrow="ALWAYS" minWidth="120" prefWidth="120"/>
+                <Label text="Friday" styleClass="day-header" HBox.hgrow="ALWAYS" minWidth="120" prefWidth="120"/>
+                <Label text="Saturday" styleClass="day-header" HBox.hgrow="ALWAYS" minWidth="120" prefWidth="120"/>
+                <Label text="Sunday" styleClass="day-header" HBox.hgrow="ALWAYS" minWidth="120" prefWidth="120"/>
+            </HBox>
+
+            <ScrollPane fitToWidth="true" styleClass="schedule-scroll-pane">
+                <GridPane fx:id="scheduleGrid" hgap="1" vgap="1" styleClass="schedule-grid">
+                    <!-- Time slots will be populated programmatically -->
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="80" prefWidth="80" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="120" prefWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="120" prefWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="120" prefWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="120" prefWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="120" prefWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="120" prefWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="120" prefWidth="120" />
+                    </columnConstraints>
+                </GridPane>
+            </ScrollPane>
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox>
+            <Separator />
+            <HBox spacing="15" alignment="CENTER_LEFT" styleClass="footer-container">
+                <padding>
+                    <Insets top="15" right="25" bottom="15" left="25"/>
+                </padding>
+
+                <HBox spacing="15" styleClass="legend-container">
+                    <Label text="Legend:" styleClass="legend-title"/>
+                    <HBox styleClass="legend-item">
+                        <StackPane styleClass="legend-color-block, available-slot" />
+                        <Label text="Available" styleClass="legend-text"/>
+                    </HBox>
+                    <HBox styleClass="legend-item">
+                        <StackPane styleClass="legend-color-block, booked-slot" />
+                        <Label text="Booked" styleClass="legend-text"/>
+                    </HBox>
+                    <HBox styleClass="legend-item">
+                        <StackPane styleClass="legend-color-block, unavailable-slot" />
+                        <Label text="Not Available" styleClass="legend-text"/>
+                    </HBox>
+                </HBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button text="Create Appointment" onAction="#createNewAppointment" styleClass="action-button"/>
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

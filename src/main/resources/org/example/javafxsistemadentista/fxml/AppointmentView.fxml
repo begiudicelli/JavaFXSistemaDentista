@@ -23,7 +23,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafxsistemadentista.controllers.AppointmentController">
+<BorderPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.javafxsistemadentista.controllers.AppointmentController">
     <top>
         <VBox alignment="CENTER" styleClass="header-panel" BorderPane.alignment="CENTER">
             <padding>
@@ -41,6 +43,7 @@
             </Separator>
         </VBox>
     </top>
+
     <center>
         <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
             <VBox spacing="20.0">
@@ -66,10 +69,6 @@
                             <Label text="Nome do Paciente:"/>
                             <TextField fx:id="patientNameField" promptText="Digite o nome do paciente" prefWidth="250.0"/>
                         </VBox>
-                        <VBox spacing="5">
-                            <Label text="CPF:"/>
-                            <TextField fx:id="patientCpfField" promptText="Digite o CPF" prefWidth="150.0"/>
-                        </VBox>
                         <Button fx:id="searchPatientButton" text="Buscar" onAction="#handlePatientSearch"/>
                     </HBox>
                     <VBox spacing="10">
@@ -79,10 +78,10 @@
                         <Label text="Resultados da Busca:" style="-fx-font-weight: bold"/>
                         <TableView fx:id="patientTableView" prefHeight="150.0" onMouseClicked="#handlePatientSelection">
                             <columns>
-                                <TableColumn fx:id="patientIdColumn" text="ID" prefWidth="50"/>
-                                <TableColumn fx:id="patientNameColumn" text="Nome" prefWidth="200"/>
-                                <TableColumn fx:id="patientCpfColumn" text="CPF" prefWidth="120"/>
-                                <TableColumn fx:id="patientPhoneColumn" text="Telefone" prefWidth="150"/>
+                                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="nameColumn" text="Nome" prefWidth="200"/>
+                                <TableColumn fx:id="cpfColumn" text="CPF" prefWidth="120"/>
+                                <TableColumn fx:id="phoneColumn" text="Telefone" prefWidth="150"/>
                             </columns>
                         </TableView>
                     </VBox>
@@ -206,8 +205,7 @@
             <padding>
                 <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
             </padding>
-            <Button fx:id="cancelButton" onAction="#handleCancel" styleClass="cancel-button" text="Cancelar" />
-            <Button fx:id="saveButton" onAction="#handleSave" styleClass="save-button" text="Salvar" />
+            <Button fx:id="nextButton" onAction="#handleNextPage" text="Proximo" />
         </HBox>
     </bottom>
     <effect>
