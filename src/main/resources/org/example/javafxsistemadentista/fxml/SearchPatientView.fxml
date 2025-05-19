@@ -18,6 +18,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.control.DatePicker?>
 <BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.example.javafxsistemadentista.controllers.SearchPatientController">
     <top>
@@ -40,10 +41,6 @@
                     <VBox spacing="5">
                         <Label text="Nome do Paciente:"/>
                         <TextField fx:id="searchNameField" promptText="Digite o nome do paciente"/>
-                    </VBox>
-                    <VBox spacing="5">
-                        <Label text="CPF:"/>
-                        <TextField fx:id="searchCpfField" promptText="Digite o CPF"/>
                     </VBox>
                     <Button fx:id="searchButton" text="Buscar" onAction="#handleSearch"/>
                 </HBox>
@@ -86,23 +83,42 @@
                                                     <RowConstraints vgrow="NEVER"/>
                                                     <RowConstraints vgrow="NEVER"/>
                                                 </rowConstraints>
+
                                                 <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                                                <Text fx:id="idLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                                <TextField fx:id="idField" GridPane.rowIndex="0" GridPane.columnIndex="1" disable="true" editable="false"/>
+
                                                 <Label text="Nome:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                                                <Text fx:id="nameLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                                                <TextField fx:id="nameField" GridPane.rowIndex="1" GridPane.columnIndex="1" disable="true"/>
+
                                                 <Label text="CPF:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                                                <Text fx:id="cpfLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                                                <Label text="Numero celular: " GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                                                <Text fx:id="phoneLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                                                <Label text="Email: " GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                                                <Text fx:id="emailLabel" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                                                <Label text="Endereco: " GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                                                <Text fx:id="addressLabel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                                                <TextField fx:id="cpfField" GridPane.rowIndex="2" GridPane.columnIndex="1" disable="true"/>
+
+                                                <Label text="Numero celular:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                                <TextField fx:id="phoneField" GridPane.rowIndex="3" GridPane.columnIndex="1" disable="true"/>
+
+                                                <Label text="Email:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                                <TextField fx:id="emailField" GridPane.rowIndex="4" GridPane.columnIndex="1" disable="true"/>
+
+                                                <Label text="Endereco:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                                                <TextField fx:id="addressField" GridPane.rowIndex="5" GridPane.columnIndex="1" disable="true"/>
+
                                                 <Label text="Data de Nascimento:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                                                <Text fx:id="birthDateLabel" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                                                <DatePicker fx:id="birthDatePicker" GridPane.rowIndex="6" GridPane.columnIndex="1" disable="true"/>
+
                                                 <Label text="Notas:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-                                                <Text fx:id="notesLabel" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                                                <TextField fx:id="notesField" GridPane.rowIndex="7" GridPane.columnIndex="1" disable="true"/>
                                             </GridPane>
+
+                                            <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="button-bar">
+                                                <padding>
+                                                    <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+                                                </padding>
+                                                <Button fx:id="editButton" onAction="#handleEdit" text="Editar" />
+                                                <padding>
+                                                    <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+                                                </padding>
+                                                <Button fx:id="saveButton" onAction="#handleSave" styleClass="save-button" text="Salvar" />
+                                            </HBox>
                                         </VBox>
                                     </content>
                                 </ScrollPane>
@@ -121,12 +137,9 @@
                                             <TableColumn fx:id="appointmentIdColumn" text="ID"/>
                                             <TableColumn fx:id="appointmentDoctorColumn" text="Médico"/>
                                             <TableColumn fx:id="appointmentDateColumn" text="Data"/>
+                                            <TableColumn fx:id="appointmentStatusColumn" text="Status"/>
                                         </columns>
                                     </TableView>
-                                    <HBox spacing="10">
-                                        <Button text="Editar Consulta" onAction="#onEditAppointment"/>
-                                        <Button text="Salvar Consulta" onAction="#onSaveAppointment"/>
-                                    </HBox>
                                 </VBox>
                             </content>
                         </Tab>
@@ -145,12 +158,9 @@
                                                     <TableColumn fx:id="examIdColumn" text="ID"/>
                                                     <TableColumn fx:id="examNameColumn" text="Nome"/>
                                                     <TableColumn fx:id="examDateColumn" text="Data"/>
+                                                    <TableColumn fx:id="examStatusColumn" text="Status"/>
                                                 </columns>
                                             </TableView>
-                                            <HBox spacing="10">
-                                                <Button text="Editar Perfil" onAction="#onEditProfile"/>
-                                                <Button text="Salvar Perfil" onAction="#onSaveProfile"/>
-                                            </HBox>
                                         </VBox>
                                     </content>
                                 </ScrollPane>

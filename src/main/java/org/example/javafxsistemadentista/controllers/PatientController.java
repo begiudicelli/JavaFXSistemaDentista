@@ -1,14 +1,11 @@
 
 package org.example.javafxsistemadentista.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.example.javafxsistemadentista.entities.Patient;
 import org.example.javafxsistemadentista.services.PatientService;
 import org.example.javafxsistemadentista.util.Alerts;
@@ -38,17 +35,17 @@ public class PatientController implements Initializable {
     private Button saveButton;
 
     private final PatientService patientService = new PatientService();
-    private Patient patient;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         birthDatePicker.setValue(LocalDate.now());
     }
 
     @FXML
-    void handleSave(ActionEvent event) {
+    private void handleSave() {
         try {
-            patient = new Patient();
+            Patient patient = new Patient();
             patient.setName(nameField.getText());
             patient.setCpf(cpfField.getText());
             patient.setPhone(phoneField.getText());
@@ -58,9 +55,19 @@ public class PatientController implements Initializable {
             patient.setNotes(notesField.getText());
             patientService.savePatient(patient);
             Alerts.showInfoAlert("Paciente cadastrado com sucesso.");
+            clearForm();
         } catch (Exception e) {
             Alerts.showErrorAlert(e.getMessage());
         }
     }
 
+    private void clearForm() {
+        nameField.clear();
+        cpfField.clear();
+        phoneField.clear();
+        emailField.clear();
+        birthDatePicker.setValue(LocalDate.now());
+        addressField.clear();
+        notesField.clear();
+    }
 }

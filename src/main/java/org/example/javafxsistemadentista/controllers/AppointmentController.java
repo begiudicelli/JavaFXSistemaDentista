@@ -9,38 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.example.javafxsistemadentista.util.Alerts;
 
 import java.io.IOException;
 
 public class AppointmentController {
 
-    @FXML
-    public void handleNextPage(ActionEvent actionEvent) {
-        try {
-            saveAppointmentData();
-            Node source = (Node) actionEvent.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/javafxsistemadentista/fxml/ScheduleView.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            currentStage.setScene(scene);
-            currentStage.setTitle("Agenda de Consultas");
-        } catch (IOException e) {
-            showError("Erro de Navegação", "Não foi possível carregar a tela de agenda: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
     private void saveAppointmentData() {
 
-    }
-
-    private void showError(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     public void handleSave(ActionEvent actionEvent) {
@@ -56,6 +32,23 @@ public class AppointmentController {
     }
 
     public void handlePatientSelection(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    public void handleNextPage(ActionEvent actionEvent) {
+        try {
+            saveAppointmentData();
+            Node source = (Node) actionEvent.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/javafxsistemadentista/fxml/ScheduleView.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
+            currentStage.setTitle("Agenda de Consultas");
+        } catch (IOException e) {
+            Alerts.showErrorAlert(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }
