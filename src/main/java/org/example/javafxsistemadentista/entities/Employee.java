@@ -4,7 +4,6 @@ public class Employee {
     private int id;
     private String name;
     private String cpf;
-    private String role;
     private String phone;
     private String email;
 
@@ -12,11 +11,10 @@ public class Employee {
 
     }
 
-    public Employee(int id, String name, String cpf, String role, String phone, String email) {
+    public Employee(int id, String name, String cpf, String phone, String email) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
-        this.role = role;
         this.phone = phone;
         this.email = email;
     }
@@ -45,13 +43,6 @@ public class Employee {
         this.cpf = cpf;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getPhone() {
         return phone;

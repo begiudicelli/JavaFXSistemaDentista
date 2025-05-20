@@ -12,7 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.javafxsistemadentista.entities.Dentist;
+import org.example.javafxsistemadentista.entities.Employee;
 import org.example.javafxsistemadentista.entities.Patient;
+import org.example.javafxsistemadentista.entities.Treatments;
 import org.example.javafxsistemadentista.services.AppointmentService;
 import org.example.javafxsistemadentista.services.PatientService;
 import org.example.javafxsistemadentista.util.Alerts;
@@ -24,25 +27,31 @@ import java.util.ResourceBundle;
 
 public class AppointmentController implements Initializable {
 
-
     //Combo box
     @FXML private ComboBox<String> dentistComboBox;
     @FXML private ComboBox<String> employeeComboBox;
     @FXML private ComboBox<String> treatmentTypeComboBox;
 
 
-
-    //Table view
+    //Patient table view
     @FXML private TableView<Patient> patientTableView;
     @FXML private TextField searchNameField;
     @FXML private TableColumn<Patient, Integer> idColumn;
-    @FXML private  TableColumn<Patient, String> nameColumn;
-    @FXML private  TableColumn<Patient, String> cpfColumn;
-    @FXML private  TableColumn<Patient, String> phoneColumn;
-
-
+    @FXML private TableColumn<Patient, String> nameColumn;
+    @FXML private TableColumn<Patient, String> cpfColumn;
+    @FXML private TableColumn<Patient, String> phoneColumn;
     @FXML private Text selectedPatientText;
 
+
+    //Treatments table view
+    @FXML private TableView<Treatments> treatmentsTableView;
+    @FXML private TableColumn<Patient, Integer> treatmentIdColumn;
+    @FXML private TableColumn<Patient, String> treatmentNameColumn;
+    @FXML private TableColumn<Patient, String> treatmentPriceColumn;
+    @FXML private TableColumn<Patient, String> treatmentActionsColumn;
+
+
+    //Services
     PatientService patientService = new PatientService();
     AppointmentService appointmentService = new AppointmentService();
 
@@ -59,31 +68,13 @@ public class AppointmentController implements Initializable {
         );
     }
 
-    private void loadComboBoxData(){
-        try {
-            List<String> treatments = appointmentService.getAllTreatments();
-            List<String> dentists = appointmentService.getAllDoctors();
-            List<String> employees = appointmentService.getAllEmployees();
-
-            treatmentTypeComboBox.getItems().setAll(treatments);
-            dentistComboBox.getItems().setAll(dentists);
-            employeeComboBox.getItems().setAll(employees);
-
-        } catch (Exception e) {
-            Alerts.showErrorAlert("Erro ao carregar dados para os campos.");
-            e.printStackTrace();
-        }
-    }
-
-    private void saveAppointmentData() {
-
-    }
 
 
     public void handleAddTreatment(ActionEvent actionEvent) {
     }
 
-    public void handlePatientSearch() {
+    @FXML
+    private void handlePatientSearch() {
         try {
             String name = searchNameField.getText();
             List<Patient> patientsFound = patientService.searchPatientsByName(name);
@@ -109,6 +100,21 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    private void loadComboBoxData(){
+        try {
+            List<Treatments> treatments = appointmentService.getAllTreatments();
+            List<Dentist> dentists = appointmentService.getAllDentists();
+            List<Employee> employees = appointmentService.getAllEmployees();
+
+            treatments.forEach(treatment -> treatmentTypeComboBox.getItems().add(treatment.getName()));
+            dentists.forEach(dentist -> dentistComboBox.getItems().add(dentist.getName()));
+            employees.forEach(employee -> employeeComboBox.getItems().add(employee.getName()));
+
+        } catch (Exception e) {
+            Alerts.showErrorAlert("Erro ao carregar dados para os campos.");
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void handleNextPage(ActionEvent actionEvent) {
@@ -125,6 +131,10 @@ public class AppointmentController implements Initializable {
             Alerts.showErrorAlert(e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void saveAppointmentData() {
+
     }
 
 
