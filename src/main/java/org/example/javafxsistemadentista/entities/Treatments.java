@@ -35,5 +35,8 @@ public class Treatments {
         this.price = price;
     }
 
-
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -78,10 +78,10 @@
                         <Label text="Resultados da Busca:" style="-fx-font-weight: bold"/>
                         <TableView fx:id="patientTableView" prefHeight="150.0" onMouseClicked="#handlePatientSelection">
                             <columns>
-                                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
-                                <TableColumn fx:id="nameColumn" text="Nome" prefWidth="200"/>
-                                <TableColumn fx:id="cpfColumn" text="CPF" prefWidth="120"/>
-                                <TableColumn fx:id="phoneColumn" text="Telefone" prefWidth="150"/>
+                                <TableColumn fx:id="patientIdColumn" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="patientNameColumn" text="Nome" prefWidth="200"/>
+                                <TableColumn fx:id="patientCpfColumn" text="CPF" prefWidth="120"/>
+                                <TableColumn fx:id="patientPhoneColumn" text="Telefone" prefWidth="150"/>
                             </columns>
                         </TableView>
                     </VBox>
@@ -160,6 +160,7 @@
                     <HBox spacing="15.0" alignment="CENTER_LEFT">
                         <ComboBox fx:id="treatmentTypeComboBox" prefWidth="250.0" promptText="Selecione o tratamento"/>
                         <Button fx:id="addTreatmentButton" text="Adicionar" onAction="#handleAddTreatment"/>
+                        <Button fx:id="removeTreatmentButton" text="Remover" onAction="#handleRemoveTreatment"/>
                     </HBox>
                     <TableView fx:id="treatmentsTableView" prefHeight="150.0">
                         <VBox.margin>
@@ -167,9 +168,8 @@
                         </VBox.margin>
                         <columns>
                             <TableColumn fx:id="treatmentIdColumn" text="ID" prefWidth="50"/>
-                            <TableColumn fx:id="treatmentNameColumn" text="Tratamento" prefWidth="200"/>
-                            <TableColumn fx:id="treatmentPriceColumn" text="Preço" prefWidth="100"/>
-                            <TableColumn fx:id="treatmentActionsColumn" text="Ações" prefWidth="100"/>
+                            <TableColumn fx:id="treatmentNameColumn" text="Nome" prefWidth="200"/>
+                            <TableColumn fx:id="treatmentPriceColumn" text="Preco" prefWidth="200"/>
                         </columns>
                     </TableView>
                     <HBox alignment="CENTER_RIGHT" spacing="10.0">

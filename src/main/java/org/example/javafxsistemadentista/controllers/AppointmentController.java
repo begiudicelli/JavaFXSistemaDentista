@@ -30,25 +30,24 @@ public class AppointmentController implements Initializable {
     //Combo box
     @FXML private ComboBox<String> dentistComboBox;
     @FXML private ComboBox<String> employeeComboBox;
-    @FXML private ComboBox<String> treatmentTypeComboBox;
+    @FXML private ComboBox<Treatments> treatmentTypeComboBox;
 
 
     //Patient table view
     @FXML private TableView<Patient> patientTableView;
     @FXML private TextField searchNameField;
-    @FXML private TableColumn<Patient, Integer> idColumn;
-    @FXML private TableColumn<Patient, String> nameColumn;
-    @FXML private TableColumn<Patient, String> cpfColumn;
-    @FXML private TableColumn<Patient, String> phoneColumn;
+    @FXML private TableColumn<Patient, Integer> patientIdColumn;
+    @FXML private TableColumn<Patient, String> patientNameColumn;
+    @FXML private TableColumn<Patient, String> patientCpfColumn;
+    @FXML private TableColumn<Patient, String> patientPhoneColumn;
     @FXML private Text selectedPatientText;
 
 
     //Treatments table view
     @FXML private TableView<Treatments> treatmentsTableView;
-    @FXML private TableColumn<Patient, Integer> treatmentIdColumn;
-    @FXML private TableColumn<Patient, String> treatmentNameColumn;
-    @FXML private TableColumn<Patient, String> treatmentPriceColumn;
-    @FXML private TableColumn<Patient, String> treatmentActionsColumn;
+    @FXML private TableColumn<Treatments, Integer> treatmentIdColumn;
+    @FXML private TableColumn<Treatments, String> treatmentNameColumn;
+    @FXML private TableColumn<Treatments, String> treatmentPriceColumn;
 
 
     //Services
@@ -57,7 +56,8 @@ public class AppointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeColumns();
+        initializePatientColumns();
+        initializeTreatmentsColumns();
         loadComboBoxData();
         patientTableView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> {
@@ -69,8 +69,16 @@ public class AppointmentController implements Initializable {
     }
 
 
+    @FXML
+    private void handleAddTreatment() {
+        Treatments selected = treatmentTypeComboBox.getSelectionModel().getSelectedItem();
+        treatmentsTableView.getItems().add(selected);
+    }
 
-    public void handleAddTreatment(ActionEvent actionEvent) {
+    @FXML
+    private void handleRemoveTreatment() {
+        Treatments selected = treatmentsTableView.getSelectionModel().getSelectedItem();
+        treatmentsTableView.getItems().remove(selected);
     }
 
     @FXML
@@ -106,7 +114,9 @@ public class AppointmentController implements Initializable {
             List<Dentist> dentists = appointmentService.getAllDentists();
             List<Employee> employees = appointmentService.getAllEmployees();
 
-            treatments.forEach(treatment -> treatmentTypeComboBox.getItems().add(treatment.getName()));
+            treatmentTypeComboBox.getItems().setAll(treatments);
+
+            //treatments.forEach(treatment -> treatmentTypeComboBox.getItems().add(treatment));
             dentists.forEach(dentist -> dentistComboBox.getItems().add(dentist.getName()));
             employees.forEach(employee -> employeeComboBox.getItems().add(employee.getName()));
 
@@ -138,11 +148,17 @@ public class AppointmentController implements Initializable {
     }
 
 
-    private void initializeColumns() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+    private void initializePatientColumns() {
+        patientIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        patientNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        patientCpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        patientPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+    }
+
+    private void initializeTreatmentsColumns(){
+        treatmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        treatmentNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        treatmentPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
 }

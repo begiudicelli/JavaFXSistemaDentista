@@ -8,8 +8,6 @@ import java.util.List;
 
 public class AppointmentService {
 
-
-
     public List<Treatments> getAllTreatments() {
         return List.of(
                 new Treatments(1, "Consulta simples", 100),
