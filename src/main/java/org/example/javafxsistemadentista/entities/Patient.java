@@ -13,7 +13,7 @@ public class Patient {
     private LocalDate birthDate;
     private String notes;
 
-    private List<Appointments> appointmentsList;
+    private List<Appointment> appointmentList;
     private List<Exam> examList;
 
     public Patient() {}
@@ -93,12 +93,12 @@ public class Patient {
         this.notes = notes;
     }
 
-    public List<Appointments> getAppointmentsList() {
-        return appointmentsList;
+    public List<Appointment> getAppointmentsList() {
+        return appointmentList;
     }
 
-    public void setAppointmentsList(List<Appointments> appointmentsList) {
-        this.appointmentsList = appointmentsList;
+    public void setAppointmentsList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
     }
 
     public List<Exam> getExamList() {

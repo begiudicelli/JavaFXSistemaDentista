@@ -1,26 +1,27 @@
 package org.example.javafxsistemadentista.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
-public class Appointments {
+public class Appointment {
     private int id;
     private Patient patient;
     private Dentist dentist;
     private Employee employee;
-    private LocalDate dateTime;
+    private LocalDateTime dateTime;
     private int duration;
-    private String status;
+    private AppointmentStatus status;
     private String notes;
     private LocalDate createdAt;
     private List<Treatments> treatmentsList;
     private double totalPrice;
 
-    public Appointments(){
-
+    public Appointment() {
     }
 
-    public Appointments(int id, Patient patient, Dentist dentist, Employee employee, LocalDate dateTime, int duration, String status, String notes, LocalDate createdAt) {
+    public Appointment(int id, Patient patient, Dentist dentist, Employee employee, LocalDateTime dateTime, int duration, AppointmentStatus status, String notes, LocalDate createdAt) {
         this.id = id;
         this.patient = patient;
         this.dentist = dentist;
@@ -64,11 +65,11 @@ public class Appointments {
         this.employee = employee;
     }
 
-    public LocalDate getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDate dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -80,11 +81,11 @@ public class Appointments {
         this.duration = duration;
     }
 
-    public String getStatus() {
+    public AppointmentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(AppointmentStatus status) {
         this.status = status;
     }
 
@@ -104,11 +105,27 @@ public class Appointments {
         this.createdAt = createdAt;
     }
 
+    public List<Treatments> getTreatmentsList() {
+        return treatmentsList;
+    }
+
+    public void setTreatmentsList(List<Treatments> treatmentsList) {
+        this.treatmentsList = treatmentsList;
+    }
+
     public double getTotalPrice() {
         return totalPrice;
     }
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return dateTime.toLocalTime();
     }
 }

@@ -68,7 +68,6 @@ public class AppointmentController implements Initializable {
         );
     }
 
-
     @FXML
     private void handleAddTreatment() {
         Treatments selected = treatmentTypeComboBox.getSelectionModel().getSelectedItem();
@@ -97,17 +96,6 @@ public class AppointmentController implements Initializable {
         }
     }
 
-
-    @FXML
-    private void handlePatientSelection(MouseEvent event) {
-        if (event.getClickCount() == 1) {
-            Patient selected = patientTableView.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-
-            }
-        }
-    }
-
     private void loadComboBoxData(){
         try {
             List<Treatments> treatments = appointmentService.getAllTreatments();
@@ -115,8 +103,6 @@ public class AppointmentController implements Initializable {
             List<Employee> employees = appointmentService.getAllEmployees();
 
             treatmentTypeComboBox.getItems().setAll(treatments);
-
-            //treatments.forEach(treatment -> treatmentTypeComboBox.getItems().add(treatment));
             dentists.forEach(dentist -> dentistComboBox.getItems().add(dentist.getName()));
             employees.forEach(employee -> employeeComboBox.getItems().add(employee.getName()));
 
@@ -134,7 +120,7 @@ public class AppointmentController implements Initializable {
             Stage currentStage = (Stage) source.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/javafxsistemadentista/fxml/ScheduleView.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 800, 600);
             currentStage.setScene(scene);
             currentStage.setTitle("Agenda de Consultas");
         } catch (IOException e) {

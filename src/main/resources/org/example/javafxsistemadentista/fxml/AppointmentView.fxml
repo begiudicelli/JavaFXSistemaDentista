@@ -76,7 +76,7 @@
                             <Insets top="10.0"/>
                         </VBox.margin>
                         <Label text="Resultados da Busca:" style="-fx-font-weight: bold"/>
-                        <TableView fx:id="patientTableView" prefHeight="150.0" onMouseClicked="#handlePatientSelection">
+                        <TableView fx:id="patientTableView" prefHeight="150.0">
                             <columns>
                                 <TableColumn fx:id="patientIdColumn" text="ID" prefWidth="50"/>
                                 <TableColumn fx:id="patientNameColumn" text="Nome" prefWidth="200"/>

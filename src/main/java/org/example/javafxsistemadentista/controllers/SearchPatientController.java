@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import org.example.javafxsistemadentista.entities.Appointments;
+import org.example.javafxsistemadentista.entities.Appointment;
 import org.example.javafxsistemadentista.entities.Patient;
 import org.example.javafxsistemadentista.services.PatientService;
 import org.example.javafxsistemadentista.util.Alerts;
@@ -45,7 +45,7 @@ public class SearchPatientController implements Initializable {
 
     // Appointments Tab
     @FXML
-    private TableView<Appointments> appointmentsTableView;
+    private TableView<Appointment> appointmentsTableView;
 
     private final PatientService patientService = new PatientService();
 
