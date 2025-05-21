@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.javafxsistemadentista.controllers.PatientController">
+    <top>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+            <Text text="Cadastro de Paciente">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Text>
+            <Separator prefWidth="200.0">
+                <VBox.margin>
+                    <Insets top="10.0" />
+                </VBox.margin>
+            </Separator>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+            <VBox spacing="20.0">
+                <padding>
+                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                </padding>
+                <VBox>
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                    <Text text="Informações Pessoais">
+                        <font>
+                            <Font name="System Bold" size="16.0"/>
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="10.0"/>
+                        </VBox.margin>
+                    </Text>
+                    <GridPane hgap="15.0" vgap="15.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"/>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        </columnConstraints>
+
+                        <!-- Name Field -->
+                        <Label styleClass="form-label" text="Nome Completo:" GridPane.columnIndex="0"
+                               GridPane.rowIndex="0"/>
+                        <TextField fx:id="nameField" promptText="Digite o nome completo"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                        <!-- CPF Field -->
+                        <Label styleClass="form-label" text="CPF:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <TextField fx:id="cpfField" promptText="000.000.000-00"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <!-- Birth Date Field -->
+                        <Label styleClass="form-label" text="Data de Nascimento:" GridPane.columnIndex="0"
+                               GridPane.rowIndex="2"/>
+                        <DatePicker fx:id="birthDatePicker" promptText="Selecione a data"
+                                    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    </GridPane>
+                </VBox>
+
+                <VBox>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <Text text="Informações de Contato">
+                        <font>
+                            <Font name="System Bold" size="16.0"/>
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="10.0"/>
+                        </VBox.margin>
+                    </Text>
+                    <GridPane hgap="15.0" vgap="15.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"/>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        </columnConstraints>
+
+                        <!-- Phone Field -->
+                        <Label text="Telefone:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField fx:id="phoneField" promptText="(00) 00000-0000"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                        <!-- Email Field -->
+                        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <TextField fx:id="emailField" promptText="exemplo@email.com"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <!-- Address Field -->
+                        <Label text="Endereço:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <TextField fx:id="addressField" promptText="Rua, número, bairro, cidade"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                        <Label text="Notas:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <TextField fx:id="notesField" promptText="Motivo, reclamacoes, sintomas"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    </GridPane>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="button-bar">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+            <Button fx:id="saveButton" onAction="#handleSave" text="Salvar" />
+        </HBox>
+    </bottom>
+    <effect>
+        <DropShadow>
+            <color>
+                <Color opacity="0.25" />
+            </color>
+        </DropShadow>
+    </effect>
+</BorderPane>
